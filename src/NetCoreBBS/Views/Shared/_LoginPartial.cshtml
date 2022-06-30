@@ -1,0 +1,36 @@
+﻿@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <form asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <div class="btn-group" style="margin-top:8px;">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @UserManager.GetUserName(User)<span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a asp-controller="User" asp-action="Index">個人情報</a></li>
+                        <li><a asp-controller="User" asp-action="Edit">個人情報編集</a></li>
+                        @if (UserManager.GetUserName(User).Equals("admin"))
+                        {
+                            <li role="separator" class="divider"></li>
+                            <li><a asp-area="Admin" asp-controller="Manage" asp-action="Index">管理センター</a></li>
+                        }
+                    </ul>
+                </div>
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log Out</a></li>
+            <li><a asp-controller="Home" asp-action="About">About</a></li>
+        </ul>
+    </form>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+        <li><a asp-controller="Account" asp-action="Register">Sign Up</a></li>
+        <li><a asp-controller="Home" asp-action="About">About</a></li>
+    </ul>
+}

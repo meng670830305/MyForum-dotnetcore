@@ -1,0 +1,12 @@
+﻿@model Tuple<int, int, int>
+
+<div class="panel panel-default topics">
+    <div class="panel-heading">
+        <h3 class="panel-title">統計情報</h3>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item">メンバー数: @Model.Item1 人</li>
+        <li class="list-group-item">投稿数: @Model.Item2 件</li>
+        <li class="list-group-item">返信数: @Model.Item3 件</li>
+    </ul>
+</div>

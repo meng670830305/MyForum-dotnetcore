@@ -1,0 +1,27 @@
+﻿@inject SignInManager<User> SignInManager
+<h4>別のアカウントでログインする</h4>
+<hr />
+@{
+    var loginProviders = await SignInManager.GetExternalAuthenticationSchemesAsync();
+    if (!loginProviders.Any())
+    {
+        <div>
+            <p>
+                他のプラットフォームを追加する必要があります
+            </p>
+        </div>
+    }
+    else
+    {
+        <form asp-controller="Account" asp-action="ExternalLogin" asp-route-returnurl="@ViewBag.ReturnUrl" method="post" class="form-horizontal" role="form">
+            <div id="socialLoginList">
+                <p>
+                    @foreach (var p in loginProviders)
+                    {
+                        <button type="submit" class="btn btn-default" id="@p.Name" name="provider" value="@p.Name" title="@p.DisplayName で登録">@p.Name</button>
+                    }
+                </p>
+            </div>
+        </form>
+    }
+}
